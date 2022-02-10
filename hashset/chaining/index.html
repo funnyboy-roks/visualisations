@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HashSet (Chaining)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            overflow: hidden;
+            background: grey;
+        }
+        canvas {
+            position: absolute;;
+            left: 50vw;
+            top: 50vh;
+            transform: translate(-50%, -50%);
+            border: 2px solid #666;
+            border-radius: .5em;
+        }
+        #bottom {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        #action {
+            font-size: 2em;
+            text-align: center;
+        }
+        #rangeMin, #rangeMax {
+            width: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<label for="auto-add">Auto Add </label>
+<input type="checkbox" name="auto-add" id="auto-add">
+<label for="auto-remove">Auto Remove </label>
+<input type="checkbox" name="auto-remove" id="auto-remove">
+<br>
+<label for="rangeMin">Min: </label><input type="number" name="min" id="rangeMin" min="0" max="1000">
+<label for="rangeMax">Max: </label><input type="number" name="max" id="rangeMax" min="0" max="1000">
+<br>
+<br>
+<input type="number" name="value" id="value">
+<button id="add">Add</button>
+<button id="remove">Remove</button>
+
+<div id="bottom">
+    <p id="action"></p>
+    <p id="values"></p>
+</div>
+<script src="./HashSet.js"></script>
+<script src="./index.js"></script>
+</body>
+</html>
