@@ -90,6 +90,7 @@ function draw() {
 		pop();
 	}
 	valuesElt.innerHTML = set.nodes.map(n => `<span style="color: hsl(${ n.color }, 100%, 50%);">${ n.element }</span>`).join(', ');
+	info.textContent = `Array Length: ${ set.buckets.length } - Load Factor: ${ round(set.loadFactor * 100) }% (threshold: ${ round(HashSet.loadThreshold * 100) }%) - Size: ${ set.size }`;
 	rainbowOffset += 1;
 }
 
@@ -99,7 +100,7 @@ const addMany = (count = 10) => {
 		added += set.add(floor(random(0, 50)));
 	}
 	return added;
-}
+};
 
 const removeMany = (count = 10) => {
 	let removed = 0;
@@ -107,6 +108,6 @@ const removeMany = (count = 10) => {
 		removed += set.remove(floor(random(0, 50)));
 	}
 	return removed;
-}
+};
 
 

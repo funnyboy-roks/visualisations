@@ -26,7 +26,7 @@
             bottom: 0;
             width: 100%;
         }
-        #action {
+        #action, #info {
             font-size: 2em;
             text-align: center;
         }
@@ -44,8 +44,8 @@
 <label for="auto-remove">Auto Remove </label>
 <input type="checkbox" name="auto-remove" id="auto-remove">
 <br>
-<label for="rangeMin">Min: </label><input type="number" name="min" id="rangeMin" min="0" max="1000">
-<label for="rangeMax">Max: </label><input type="number" name="max" id="rangeMax" min="0" max="1000">
+<label for="rangeMin">Min: </label><input type="number" name="min" id="rangeMin" min="0" max="1000" value="0">
+<label for="rangeMax">Max: </label><input type="number" name="max" id="rangeMax" min="0" max="1000" value="50">
 <br>
 <br>
 <input type="number" name="value" id="value">
@@ -54,6 +54,7 @@
 
 <div id="bottom">
     <p id="action"></p>
+    <p id="info"></p>
     <p id="values"></p>
 </div>
 <script src="./HashSet.js"></script>

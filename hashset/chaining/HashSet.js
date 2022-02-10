@@ -2,6 +2,7 @@
  * Implementation of a hashset, used for visualisation
  */
 class HashSet {
+	static loadThreshold = 0.95;
 
 	constructor() {
 		this.size = 0;
@@ -15,6 +16,9 @@ class HashSet {
 	 */
 	add(element) {
 		let hash = HashSet.hash(element, this.buckets.length);
+		if(this.size / this.buckets.length > 0.9) {
+			this.inflate();
+		}
 		if (!this.buckets[hash]) {
 			this.buckets[hash] = new HashNode(element);
 			this.size++;
@@ -80,7 +84,7 @@ class HashSet {
 		return false;
 	}
 
-	resize(newSize = this.buckets.length * 2) {
+	inflate(newSize = Math.floor(this.buckets.length * 1.5)) {
 		let newBuckets = new Array(newSize);
 		for (let i = 0; i < this.buckets.length; i++) {
 			let current = this.buckets[i];
@@ -153,6 +157,10 @@ class HashSet {
 			}
 		}
 		return max === -Infinity ? 50 : max;
+	}
+
+	get loadFactor() {
+		return this.size / this.buckets.length;
 	}
 }
 
