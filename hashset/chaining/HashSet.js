@@ -2,11 +2,15 @@
  * Implementation of a hashset, used for visualisation
  */
 class HashSet {
-	static loadThreshold = 0.95;
+	static loadThreshold = {
+		max: .9,
+		min: .25,
+	};
+	static minSize = 13;
 
 	constructor() {
 		this.size = 0;
-		this.buckets = new Array(13);
+		this.buckets = new Array(HashSet.minSize);
 	}
 
 	/**
@@ -16,8 +20,8 @@ class HashSet {
 	 */
 	add(element) {
 		let hash = HashSet.hash(element, this.buckets.length);
-		if(this.size / this.buckets.length > 0.9) {
-			this.inflate();
+		if (this.loadFactor > HashSet.loadThreshold.max) {
+			this.resize();
 		}
 		if (!this.buckets[hash]) {
 			this.buckets[hash] = new HashNode(element);
@@ -56,6 +60,9 @@ class HashSet {
 					this.buckets[index] = current.next;
 				}
 				this.size--;
+				if (this.loadFactor < HashSet.loadThreshold.min) {
+					this.resize(Math.max(HashSet.minSize, Math.floor(this.buckets.length * 2 / 3)));
+				}
 				return true;
 			}
 			prev = current;
@@ -84,7 +91,10 @@ class HashSet {
 		return false;
 	}
 
-	inflate(newSize = Math.floor(this.buckets.length * 1.5)) {
+	resize(newSize = Math.floor(this.buckets.length * 1.5)) {
+		if (newSize === this.buckets.length) {
+			return;
+		}
 		let newBuckets = new Array(newSize);
 		for (let i = 0; i < this.buckets.length; i++) {
 			let current = this.buckets[i];
@@ -149,7 +159,7 @@ class HashSet {
 			if (this.buckets[i]) {
 				let current = this.buckets[i];
 				while (current) {
-					if(max < current.element) {
+					if (max < current.element) {
 						max = current.element;
 					}
 					current = current.next;
